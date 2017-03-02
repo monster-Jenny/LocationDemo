@@ -18,6 +18,12 @@
 
 @property (nonatomic, strong) UILabel * label;
 
+@property (nonatomic, strong) UILabel * horizontalAccuracyLabel;
+
+@property (nonatomic, strong) UILabel * verticalAccuracyLabel;
+
+@property (nonatomic, strong) UILabel * altitudeLabel;
+
 @end
 
 @implementation BaiDuLocationViewCtl
@@ -96,6 +102,38 @@
         make.left.right.equalTo(self.view);
         make.height.equalTo(@30);
     }];
+    
+    self.horizontalAccuracyLabel = [[UILabel alloc] init];
+    self.horizontalAccuracyLabel.textColor = [UIColor redColor];
+    self.horizontalAccuracyLabel.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.horizontalAccuracyLabel];
+    [self.horizontalAccuracyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.label.mas_top);
+        make.left.equalTo(self.view.mas_left);
+        make.width.equalTo(@(SCREEN_WIDTH / 2.0));
+        make.height.equalTo(@30);
+    }];
+    
+    self.verticalAccuracyLabel = [[UILabel alloc] init];
+    self.verticalAccuracyLabel.textColor = [UIColor redColor];
+    self.verticalAccuracyLabel.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.verticalAccuracyLabel];
+    [self.verticalAccuracyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.label.mas_top);
+        make.right.equalTo(self.view.mas_right);
+        make.width.equalTo(@(SCREEN_WIDTH / 2.0));
+        make.height.equalTo(@30);
+    }];
+    
+    self.altitudeLabel = [[UILabel alloc] init];
+    self.altitudeLabel.textColor = [UIColor blackColor];
+    self.altitudeLabel.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.altitudeLabel];
+    [self.altitudeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.horizontalAccuracyLabel.mas_top);
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(@30);
+    }];
 }
 
 - (void)startLocation:(UIButton *)sender
@@ -149,6 +187,9 @@
     NSLog(@"didUpdateBMKUserLocation");
     NSLog(@"当前位置信息：didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     self.label.text = [NSString stringWithFormat:@"纬度是：%f ；经度是：%f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude];
+    self.horizontalAccuracyLabel.text = [NSString stringWithFormat:@"horizontal：%f",userLocation.location.horizontalAccuracy];
+    self.verticalAccuracyLabel.text = [NSString stringWithFormat:@"vertical：%f",userLocation.location.verticalAccuracy];
+    self.altitudeLabel.text = [NSString stringWithFormat:@"altitude：%f",userLocation.location.altitude];
 }
 
 /**
