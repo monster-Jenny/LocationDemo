@@ -1,0 +1,30 @@
+//
+//  PrefixHeader.pch
+//  LocationDemo
+//
+//  Created by Monster on 2017/3/1.
+//  Copyright © 2017年 Monster. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+//#import "Masonry.h"
+#import <Masonry.h>
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define NAV_BAR_HEIGHT                       44
+#define TAB_BAR_HEIGHT                       49
+#define STATUS_BAR_HEIGHT                    20
+
+#define HEIGHT_NO_TAB (SCREEN_HEIGHT- TAB_BAR_HEIGHT)
+#define HEIGHT_NO_STATUS_NAV (SCREEN_HEIGHT - STATUS_BAR_HEIGHT - NAV_BAR_HEIGHT)
+#define HEIGHT_NO_STATUS_TAB (SCREEN_HEIGHT - STATUS_BAR_HEIGHT - TAB_BAR_HEIGHT)
+#define HEIGHT_NO_STATUS_NAV_TAB (SCREEN_HEIGHT - STATUS_BAR_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT)
+#define HEIGHT_NO_STATUS (SCREEN_HEIGHT - STATUS_BAR_HEIGHT)
+#define HEIGHT_STATUS_AND_NAV (STATUS_BAR_HEIGHT + NAV_BAR_HEIGHT)
+
+#define BTNHeight    40
+
+#endif /* PrefixHeader_pch */

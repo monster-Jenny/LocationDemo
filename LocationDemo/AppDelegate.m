@@ -7,8 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "RootViewController.h"
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
+const static NSString *APIKey = @"53deba87ea97a627923e0e352447f785";
+
+BMKMapManager* _mapManager;
 @interface AppDelegate ()
+<BMKGeneralDelegate>
 
 @end
 
@@ -17,7 +24,44 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    RootViewController * viewCtl = [[RootViewController alloc] init];
+    
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:viewCtl];
+    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+    
+    _mapManager = [[BMKMapManager alloc]init];
+    BOOL ret = [_mapManager start:@"DBZz9X3lbvxBETFZrNpeCrU2FQn764ji" generalDelegate:self];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+    
+    [AMapServices sharedServices].apiKey = (NSString *)APIKey;
+    
     return YES;
+}
+
+- (void)onGetNetworkState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"联网成功");
+    }
+    else{
+        NSLog(@"onGetNetworkState %d",iError);
+    }
+    
+}
+
+- (void)onGetPermissionState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"授权成功");
+    }
+    else {
+        NSLog(@"onGetPermissionState %d",iError);
+    }
 }
 
 
